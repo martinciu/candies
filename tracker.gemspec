@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Tracker::VERSION
 
-  gem.add_dependency "rack", "~> 1.3.5"
+  gem.add_dependency "rack", "~> 1.3.4"
   gem.add_dependency 'redis', '~> 2.2.2'
   gem.add_dependency 'redis-namespace', '~> 1.1.0'
 

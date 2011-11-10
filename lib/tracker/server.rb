@@ -2,7 +2,8 @@ module Tracker
   class Server
     def call(env)
       req = Rack::Request.new(env)
-      Tracker.redis.set [req.params.delete("id"), Time.now.iso8601].join(":"), req.params
+      id = req.params.delete("id")
+      Tracker.redis.set([id, Time.now.iso8601].join(":"), req.params) if !id.nil?
       [200, headers, [image]]
     end
 

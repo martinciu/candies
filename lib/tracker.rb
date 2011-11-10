@@ -1,11 +1,13 @@
 require 'redis/namespace'
 require 'time'
 
-require "tracker/version"
 require "tracker/server"
+require "tracker/helper"
 
 module Tracker
   extend self
+
+  attr_accessor :url
 
   # Accepts:
   #   1. A 'hostname:port' String
@@ -52,5 +54,16 @@ module Tracker
     end
   end
 
+end
+
+if defined?(Rails)
+  class ActionController::Base
+    ActionController::Base.send :include, Tracker::Helper
+    ActionController::Base.helper Tracker::Helper
+  end
+  class ActionMailer::Base
+    ActionMailer::Base.send :include, Tracker::Helper
+    ActionMailer::Base.helper Tracker::Helper
+  end
 end
 
