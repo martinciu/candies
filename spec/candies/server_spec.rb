@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Tracker::Server do
+describe Candies::Server do
   include Rack::Test::Methods
 
   before do
     @redis = mock()
-    Tracker.stubs(:redis).returns(@redis)
+    Candies.stubs(:redis).returns(@redis)
   end
 
   after(:each) do
@@ -13,7 +13,7 @@ describe Tracker::Server do
   end
 
   def app
-    @app ||= Tracker::Server.new
+    @app ||= Candies::Server.new
   end
 
   it "get /t.gif?id=info@example.com&foo=bar adds record" do

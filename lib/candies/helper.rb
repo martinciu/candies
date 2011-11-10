@@ -1,7 +1,7 @@
-module Tracker
+module Candies
   module Helper
-    def tracker_image_tag(args)
-      image_tag("#{Tracker.url}/t.gif?#{args.to_query}", :alt => "", :width => 1, :height => 1) if Tracker.url
+    def candies_image_tag(args)
+      image_tag("#{Candies.url}/t.gif?#{args.to_query}", :alt => "", :width => 1, :height => 1) if Candies.url
     end
   end
 end

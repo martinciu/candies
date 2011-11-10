@@ -1,3 +1,3 @@
-module Tracker
+module Candies
   VERSION = "0.0.1"
 end

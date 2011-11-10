@@ -2,10 +2,10 @@ require 'redis/namespace'
 require 'time'
 require 'json'
 
-require "tracker/server"
-require "tracker/helper"
+require "candies/server"
+require "candies/helper"
 
-module Tracker
+module Candies
   extend self
 
   attr_accessor :url
@@ -28,13 +28,13 @@ module Tracker
         redis = Redis.new(:host => host, :port => port,
           :thread_safe => true, :db => db)
       end
-      namespace ||= :tracker
+      namespace ||= :candies
 
       @redis = Redis::Namespace.new(namespace, :redis => redis)
     when Redis::Namespace
       @redis = server
     else
-      @redis = Redis::Namespace.new(:tracker, :redis => server)
+      @redis = Redis::Namespace.new(:candies, :redis => server)
     end
   end
 
@@ -59,12 +59,12 @@ end
 
 if defined?(Rails)
   class ActionController::Base
-    ActionController::Base.send :include, Tracker::Helper
-    ActionController::Base.helper Tracker::Helper
+    ActionController::Base.send :include, Candies::Helper
+    ActionController::Base.helper Candies::Helper
   end
   class ActionMailer::Base
-    ActionMailer::Base.send :include, Tracker::Helper
-    ActionMailer::Base.helper Tracker::Helper
+    ActionMailer::Base.send :include, Candies::Helper
+    ActionMailer::Base.helper Candies::Helper
   end
 end
 

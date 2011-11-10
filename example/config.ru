@@ -3,8 +3,8 @@ require 'bundler'
 
 Bundler.require
 
-require 'tracker'
+require 'candies'
 
-# Tracker.redis = ENV['REDISTOGO_URL']
+# Candies.redis = ENV['REDISTOGO_URL']
 
-run Tracker::Server.new
+run Candies::Server.new

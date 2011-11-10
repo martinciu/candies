@@ -1,9 +1,9 @@
-module Tracker
+module Candies
   class Server
     def call(env)
       req = Rack::Request.new(env)
       id = req.params.delete("id")
-      Tracker.redis.set([id, Time.now.iso8601].join(":"), req.params.to_json) if !id.nil?
+      Candies.redis.set([id, Time.now.iso8601].join(":"), req.params.to_json) if !id.nil?
       [200, headers, [image]]
     end
 
