@@ -34,7 +34,46 @@ and require it in your project:
 
 ## Usage
 
-TODO
+### Standalone service
+
+Tracker can be deployed as a standalone service (for example to heroku). To do it create a simple `config.ru` file:
+
+    require 'rubygems'
+    require 'tracker'
+
+    # Tracker.redis = ENV['REDISTOGO_URL'], read below about redis configuration
+
+    run Tracker::Server.new
+
+and deploy it to any `rack` compatybile environment (passenger, thin, unicorn, etc.)
+
+### Mounted to the Rails app
+
+Mount Tracker in your `config/routes.rb` file:
+
+    mount Tracker::Server.new => "tracker", :as => "tracker"
+
+It will be available under `http://yourapproot.tld/tracker` url
+
+### Image tag
+
+When you have Tracker server deployed you can add tracking payload by including `img` tag in your HTML code:
+
+    <a href="http://tracker.tld/anyfile.gif?id=tracing-id&foo=bar&baz=foo" />
+
+or if you mounted tracker in your rails app as `tracker` then it will be:
+
+    <a href="http://yourapproot.tld/tracker/anyfile.gif?id=tracing-id&foo=bar&baz=foo" />
+
+Also in rails app you can use `tracker_image_tag` helper. To do so you have to set `Tracker.url` to point to the tracker service url. The best way is to put in `config/initializers/tracker.rb` file:
+    
+    Tracker.host = "http://yourapproot.tld/tracker"
+
+Now you can use `tracker_image_tag` helper in controller views and in mailer views. Example:
+
+    <%= tracker_image_tag(:id => "anyone@example.com", :email_type => "hello") %>
+
+Note that `id` parameter is required. It will be used to create a redis key under which paload will be stored. In this case redis key will be: `tracker:anyone@example.com:2011-11-10T13:13:09+01:00` and value: `"{\"email_type\":\"hello\"}"`. If you don't specify `id` parameter not value will be stored. Invisible image will by served anyway.
 
 ## Configuration
 
@@ -87,6 +126,10 @@ Simply use the `Tracker.redis.namespace` accessor:
 
 We recommend sticking this in your initializer somewhere after Redis
 is configured.
+
+## Results
+
+There isn't any dashboard for displaying values (yet). You cen review them by logging into `redis-cli`. Sorry.
 
 ## Development
 
