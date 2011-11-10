@@ -17,7 +17,8 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency "rack", "~> 1.3.4"
   gem.add_dependency 'redis', '~> 2.2.2'
-  gem.add_dependency 'redis-namespace', '~> 1.1.0'
+  gem.add_dependency 'redis-namespace', '>= 1.0.3'
+  gem.add_dependency "json", ">= 1.5.3"
 
   gem.add_development_dependency "rake", "~> 0.9.2"
   gem.add_development_dependency "minitest", "~> 2.7.0"

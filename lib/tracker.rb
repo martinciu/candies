@@ -1,5 +1,6 @@
 require 'redis/namespace'
 require 'time'
+require 'json'
 
 require "tracker/server"
 require "tracker/helper"
