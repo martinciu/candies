@@ -130,7 +130,33 @@ is configured.
 
 ## Results
 
-There isn't any dashboard for displaying values (yet). You cen review them by logging into `redis-cli`. Sorry.
+There isn't any dashboard for displaying values. You can review gathered metrics in three ways:
+
+### JSON
+
+You can get all data from candies server if you request it using JSON.
+
+    curl http://localhost:9393/tu.json?id=10 |jsonpretty
+    {
+      "tracker:10:2011-11-19T22:39:34+01:00": "{\"foo\":\"99\"}",
+      "tracker:10:2011-11-19T22:23:09+01:00": "{\"foo\":\"39\"}",
+      "tracker:10:2011-11-19T22:24:26+01:00": "{\"foo\":\"94\"}"
+    }
+
+Note: `id` parameter is optional.
+
+### redis-cli
+
+Just log to your Redis using redis command line interface. Keys started with `candies` so to display all keys from candies type
+
+    redis 127.0.0.1:6379> keys candies*
+    1) "candies:tracker:10:2011-11-19T22:39:34+01:00"
+    2) "candies:tracker:10:2011-11-19T22:23:09+01:00"
+    3) "candies:tracker:10:2011-11-19T22:24:26+01:00"
+
+### redisplay
+
+Use [redisplay](https://github.com/martinciu/redisplay) Simple Rack app for browsing Redis
 
 ## Development
 

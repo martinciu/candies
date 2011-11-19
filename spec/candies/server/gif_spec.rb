@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Candies::Server do
+describe Candies::Server::Gif do
   include Rack::Test::Methods
 
   before do
