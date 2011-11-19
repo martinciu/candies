@@ -1,36 +1,6 @@
-# Candies[![travis-ci](https://secure.travis-ci.org/martinciu/candies.png?branch=master)](http://travis-ci.org/martinciu/candies)
-Invisible image based tracing service with Redis backend
-
-## Requirements
-
-Candies uses redis as a datastore.
-
-Candies only supports redis 2.0 or greater.
-
-If you're on OS X, Homebrew is the simplest way to install Redis:
-
-    $ brew install redis
-    $ redis-server /usr/local/etc/redis.conf
-
-You now have a Redis daemon running on 6379.
-
-## Setup
-
-If you are using bundler add candies to your Gemfile:
-
-    gem 'candies'
-
-Then run:
-
-    bundle install
-
-Otherwise install the gem:
-
-    gem install candies
-
-and require it in your project:
-
-    require 'candies'
+# Candies
+[![travis-ci](https://secure.travis-ci.org/martinciu/candies.png?branch=master)](http://travis-ci.org/martinciu/candies)
+####Invisible image based tracing service with Redis backend
 
 ## Usage
 
@@ -74,6 +44,37 @@ Now you can use `candies_image_tag` helper in controller views and in mailer vie
     <%= candies_image_tag(:id => "anyone@example.com", :email_type => "hello") %>
 
 Note that `id` parameter is required. It will be used to create a redis key under which paload will be stored. In this case redis key will be: `candies:anyone@example.com:2011-11-10T13:13:09+01:00` and value: `"{\"email_type\":\"hello\"}"`. If you don't specify `id` parameter not value will be stored. Invisible image will by served anyway.
+
+## Requirements
+
+Candies uses redis as a datastore.
+
+Candies only supports redis 2.0 or greater.
+
+If you're on OS X, Homebrew is the simplest way to install Redis:
+
+    $ brew install redis
+    $ redis-server /usr/local/etc/redis.conf
+
+You now have a Redis daemon running on 6379.
+
+## Setup
+
+If you are using bundler add candies to your Gemfile:
+
+    gem 'candies'
+
+Then run:
+
+    bundle install
+
+Otherwise install the gem:
+
+    gem install candies
+
+and require it in your project:
+
+    require 'candies'
 
 ## Configuration
 
