@@ -3,7 +3,8 @@ module Candies
     def call(env)
       req = Rack::Request.new(env)
       id = req.params.delete("id")
-      Candies.redis.set([id, Time.now.iso8601].join(":"), req.params.to_json) if !id.nil?
+      tracker = req.path.gsub(/[\/|\.gif]/, "")
+      Candies.redis.set([tracker, id, Time.now.iso8601].join(":"), req.params.to_json) if !id.nil?
       [200, headers, [image]]
     end
 

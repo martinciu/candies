@@ -29,11 +29,11 @@ It will be available under `http://yourapproot.tld/candies` url
 
 When you have Candies server deployed you can add tracking payload by including `img` tag in your HTML code:
 
-    <a href="http://candies.tld/anyfile.gif?id=tracing-id&foo=bar&baz=foo" />
+    <a href="http://candies.tld/trackername.gif?id=tracing-id&foo=bar&baz=foo" />
 
 or if you mounted candies in your rails app as `candies` then it will be:
 
-    <a href="http://yourapproot.tld/candies/anyfile.gif?id=tracing-id&foo=bar&baz=foo" />
+    <a href="http://yourapproot.tld/candies/trackername.gif?id=tracing-id&foo=bar&baz=foo" />
 
 Also in rails app you can use `candies_image_tag` helper. To do so you have to set `Candies.url` to point to the candies service url. The best way is to put in `config/initializers/candies.rb` file:
     
@@ -41,9 +41,9 @@ Also in rails app you can use `candies_image_tag` helper. To do so you have to s
 
 Now you can use `candies_image_tag` helper in controller views and in mailer views. Example:
 
-    <%= candies_image_tag(:id => "anyone@example.com", :email_type => "hello") %>
+    <%= candies_image_tag(:id => "anyone@example.com", :tracker => "t", :email_type => "hello") %>
 
-Note that `id` parameter is required. It will be used to create a redis key under which paload will be stored. In this case redis key will be: `candies:anyone@example.com:2011-11-10T13:13:09+01:00` and value: `"{\"email_type\":\"hello\"}"`. If you don't specify `id` parameter not value will be stored. Invisible image will by served anyway.
+Note that `id` parameter is required. If `tracker` parameter is ommited it will be set "t" as default. Rest of parameters is a tracking payload. In this case redis key will be: `candies:tracker:anyone@example.com:2011-11-10T13:13:09+01:00` and value: `"{\"email_type\":\"hello\"}"`. If you don't specify `id` parameter not value will be stored. Invisible image will by served anyway.
 
 ## Requirements
 
