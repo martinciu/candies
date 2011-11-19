@@ -45,6 +45,36 @@ Now you can use `candies_image_tag` helper in controller views and in mailer vie
 
 Note that `id` parameter is required. If `tracker` parameter is ommited it will be set "t" as default. Rest of parameters is a tracking payload. In this case redis key will be: `candies:tracker:anyone@example.com:2011-11-10T13:13:09+01:00` and value: `"{\"email_type\":\"hello\"}"`. If you don't specify `id` parameter not value will be stored. Invisible image will by served anyway.
 
+## Results
+
+There isn't any dashboard for displaying values. You can review gathered metrics in three ways:
+
+### JSON
+
+You can get all data from candies server if you request it using JSON.
+
+    curl http://localhost:9393/tracker.json?id=10 |jsonpretty
+    {
+      "tracker:10:2011-11-19T22:39:34+01:00": "{\"foo\":\"99\"}",
+      "tracker:10:2011-11-19T22:23:09+01:00": "{\"foo\":\"39\"}",
+      "tracker:10:2011-11-19T22:24:26+01:00": "{\"foo\":\"94\"}"
+    }
+
+Note: `id` parameter is optional.
+
+### redis-cli
+
+Just log to your Redis using redis command line interface. Keys started with `candies` so to display all keys from candies type
+
+    redis 127.0.0.1:6379> keys candies*
+    1) "candies:tracker:10:2011-11-19T22:39:34+01:00"
+    2) "candies:tracker:10:2011-11-19T22:23:09+01:00"
+    3) "candies:tracker:10:2011-11-19T22:24:26+01:00"
+
+### redisplay
+
+Use [redisplay](https://github.com/martinciu/redisplay) Simple Rack app for browsing Redis
+
 ## Requirements
 
 Candies uses redis as a datastore.
@@ -127,36 +157,6 @@ Simply use the `Candies.redis.namespace` accessor:
 
 We recommend sticking this in your initializer somewhere after Redis
 is configured.
-
-## Results
-
-There isn't any dashboard for displaying values. You can review gathered metrics in three ways:
-
-### JSON
-
-You can get all data from candies server if you request it using JSON.
-
-    curl http://localhost:9393/tu.json?id=10 |jsonpretty
-    {
-      "tracker:10:2011-11-19T22:39:34+01:00": "{\"foo\":\"99\"}",
-      "tracker:10:2011-11-19T22:23:09+01:00": "{\"foo\":\"39\"}",
-      "tracker:10:2011-11-19T22:24:26+01:00": "{\"foo\":\"94\"}"
-    }
-
-Note: `id` parameter is optional.
-
-### redis-cli
-
-Just log to your Redis using redis command line interface. Keys started with `candies` so to display all keys from candies type
-
-    redis 127.0.0.1:6379> keys candies*
-    1) "candies:tracker:10:2011-11-19T22:39:34+01:00"
-    2) "candies:tracker:10:2011-11-19T22:23:09+01:00"
-    3) "candies:tracker:10:2011-11-19T22:24:26+01:00"
-
-### redisplay
-
-Use [redisplay](https://github.com/martinciu/redisplay) Simple Rack app for browsing Redis
 
 ## Development
 
